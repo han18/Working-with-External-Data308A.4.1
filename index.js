@@ -1,5 +1,4 @@
-// import * as Carousel from "./Carousel.js";
-// import axios from "axios";
+// import axios from "./axios";
 
 // The breed selection input element.
 const breedSelect = document.getElementById("breedSelect");
@@ -10,10 +9,14 @@ const progressBar = document.getElementById("progressBar");
 // The get favourites button element.
 const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 
+//==============================================================
+// the base URL
+const BASE_URL = "https://api.thecatapi.com/v1/";
 // Step 0: Store your API key here for reference and easy access.
 // I set my API KEY
 const API_KEY =
   "live_NYBo3ZeybZMRN9jdZ4wOl1KeKn2EX19GmP1XJlbAN8LI61krwajRAWgnVwma4KUd";
+//==============================================================
 
 /**
  * 1. Create an async function "initialLoad" that does the following:
@@ -24,14 +27,45 @@ const API_KEY =
  * This function should execute immediately.
  */
 
-let response = async function () {
+// using FETCH in this example 
+// let response = async function () {
+//     try {
+//       const res = await fetch(`${BASE_URL}breeds`, {
+//         method: 'GET',
+//         headers: {
+//           "x-api-key": API_KEY,
+//         },
+//       });
+  
+//       // Checking if the response data is ok 
+//       if (!res.ok) {
+//         throw new Error(`HTTP error! status: ${res.status}`);
+//       }
+  
+//       const catBreeds = await res.json();
+//       console.log(catBreeds);
+  
+//       for (let i = 0; i < catBreeds.length; i++) {
+//         breedSelect.innerHTML += `<option id=${catBreeds[i].id}> ${catBreeds[i].name} </option>`;
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+  
+//   // calling the function
+//   response();
+
+
+// using axios as an alternitive to fetch
+let initialLoad = async function () {
   await axios
     .get(`${BASE_URL}breeds`, {
-        // this is the header 
+      // this is the header
       "x-api-key": API_KEY,
     })
     .then((res) => {
-      console.log(res)
+      console.log(res);
       const catBreeds = res.data;
       for (let i = 0; i < catBreeds.length; i++) {
         breedSelect.innerHTML += `<option id=${catBreeds[i].id}> ${catBreeds[i].name} </option>`;
@@ -41,7 +75,7 @@ let response = async function () {
 };
 
 // calling the function
-response();
+initialLoad();
 
 /**
  * 2. Create an event handler for breedSelect that does the following:
@@ -57,6 +91,17 @@ response();
  * - Each new selection should clear, re-populate, and restart the Carousel.
  * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
  */
+
+getFavouritesBtn.addEventListener("click", async () => {
+    fetch(`${BASE_URL}`).then(res => {
+        const data = res.data;
+        console.log(data);
+
+    }).catch(error => console.log(error))
+
+})
+
+
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
