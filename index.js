@@ -27,7 +27,7 @@ const API_KEY =
  * This function should execute immediately.
  */
 
-// using FETCH in this example 
+// using FETCH in this example
 // let response = async function () {
 //     try {
 //       const res = await fetch(`${BASE_URL}breeds`, {
@@ -36,15 +36,15 @@ const API_KEY =
 //           "x-api-key": API_KEY,
 //         },
 //       });
-  
-//       // Checking if the response data is ok 
+
+//       // Checking if the response data is ok
 //       if (!res.ok) {
-//         throw new Error(`HTTP error! status: ${res.status}`);
+//         throw new Error(`HTTP error!`);
 //       }
-  
+
 //       const catBreeds = await res.json();
 //       console.log(catBreeds);
-  
+
 //       for (let i = 0; i < catBreeds.length; i++) {
 //         breedSelect.innerHTML += `<option id=${catBreeds[i].id}> ${catBreeds[i].name} </option>`;
 //       }
@@ -52,11 +52,11 @@ const API_KEY =
 //       console.log(err);
 //     }
 //   };
-  
+
 //   // calling the function
 //   response();
 
-
+// ======================== the axios code ==================
 // using axios as an alternitive to fetch
 let initialLoad = async function () {
   await axios
@@ -74,11 +74,13 @@ let initialLoad = async function () {
     .catch((err) => console.log(err));
 };
 
+// ========================================================
+
 // calling the function
 initialLoad();
 
 /**
- * 2. Create an event handler for breedSelect that does the following:
+ * PART TWO: Create an event handler for breedSelect that does the following:
  * - Retrieve information on the selected breed from the cat API using fetch().
  *  - Make sure your request is receiving multiple array items!
  *  - Check the API documentation if you're only getting a single object.
@@ -92,14 +94,22 @@ initialLoad();
  * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
  */
 
-getFavouritesBtn.addEventListener("click", async () => {
-    fetch(`${BASE_URL}`).then(res => {
-        const data = res.data;
-        console.log(data);
 
-    }).catch(error => console.log(error))
-
-})
+// old code=======================
+// breedSelect.addEventListener("click", async () => {
+//   fetch(`${BASE_URL}.breeds`)
+//     .then((res) => {
+//       const data = res.data;
+//       console.log(data);
+//       data.foreach((data) => {
+//         // this is the p tag element that will hold the info of the breed within the div element id=infoDump
+//         let infoDump = document.createElement("p"); // creating a new element
+//         infoDump.setAttribute();
+//       });
+//     })
+//     .catch((error) => console.log(error));
+// });
+//  old code ===============================================
 
 
 
