@@ -20,7 +20,7 @@ axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["x-api-key"] = API_KEY;
 
 // Function to load breeds into the dropdown
-let initialLoad = async function () {
+let initialLoad = async () => {
   try {
     const res = await axios.get("breeds");
     const catBreeds = res.data;
