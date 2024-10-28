@@ -29,13 +29,17 @@ let initialLoad = async () => {
     console.log(catBreeds);
 
     catBreeds.forEach(breed => {
+      // creating a new element option for each breed
       const option = document.createElement("option");
+      // getting each breed's id 
       option.value = breed.id;
+      // geeting the breeds name
       option.textContent = breed.name;
+      //appened the option element to the section
       breedSelect.appendChild(option);
     });
 
-    // Optionally, you can trigger a change event here to load images for the first breed
+    // to load images for the first breed
     if (catBreeds.length > 0) {
       breedSelect.value = catBreeds[0].id;
       breedSelect.dispatchEvent(new Event("change"));
@@ -45,21 +49,23 @@ let initialLoad = async () => {
   }
 };
 
-// Event handler for breed selection
+// Event handler for breed selection, change since the event is not on a click but on a change of selection
 breedSelect.addEventListener("change", async () => {
+  // getting the breeds value on change
   const selectedBreedId = breedSelect.value;
   if (selectedBreedId) {
     // clearing the previous content to laod new selection 
     carouselInner.innerHTML = '';
     infoDump.innerHTML = '';
-    progressBar.style.width = "0%"; // Reset progress bar
+    progressBar.style.width = "0%"; // eesetting progress bar
 
     try {
-      // Fetch breed images
-      const response = await axios.get(`images/search?breed_id=${selectedBreedId}&limit=5`, {
+      // fetching the breeds image
+      const response = await axios.get(`images/search?breed_id=${selectedBreedId}&limit=3`, {
         onDownloadProgress: updateProgress,
       });
 
+    // from the api response getting the images  
       const cats = response.data;
       if (Array.isArray(cats) && cats.length > 0) {
         cats.forEach(cat => {
@@ -67,7 +73,7 @@ breedSelect.addEventListener("change", async () => {
           appendCarousel(carouselItem);
         });
 
-        // Display breed information
+        // displying the breeds infor
         const breedInfo = `Breed Name: ${cats[0].breeds[0].name || "Unknown"}`;
         infoDump.innerHTML = `<h2>${breedInfo}</h2><p>${cats[0].breeds[0].description || "No description available."}</p>`;
         start(); // Start the carousel
