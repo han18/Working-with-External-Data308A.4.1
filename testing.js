@@ -11,19 +11,22 @@ const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 // getting the carousel items to display images
 const carouselInner = document.getElementById("carouselInner");
 
-// API configuration
+// API base URL
 const BASE_URL = "https://api.thecatapi.com/v1/";
+// API key
 const API_KEY = "live_NYBo3ZeybZMRN9jdZ4wOl1KeKn2EX19GmP1XJlbAN8LI61krwajRAWgnVwma4KUd";
 
-// Axios configuration
+// axios config and setting header to hold info of the request
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["x-api-key"] = API_KEY;
 
-// Function to load breeds into the dropdown
+// this function to load breeds into the dropdown
 let initialLoad = async () => {
   try {
     const res = await axios.get("breeds");
+    // to hold the given api data
     const catBreeds = res.data;
+    console.log(catBreeds);
 
     catBreeds.forEach(breed => {
       const option = document.createElement("option");
@@ -46,7 +49,7 @@ let initialLoad = async () => {
 breedSelect.addEventListener("change", async () => {
   const selectedBreedId = breedSelect.value;
   if (selectedBreedId) {
-    // Clear previous content
+    // clearing the previous content to laod new selection 
     carouselInner.innerHTML = '';
     infoDump.innerHTML = '';
     progressBar.style.width = "0%"; // Reset progress bar

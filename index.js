@@ -187,4 +187,3 @@ export async function favourite(imgId) {
  */
 
 
-//  I nested a repo inside another repo and trying to remove it
