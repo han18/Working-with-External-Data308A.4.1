@@ -67,15 +67,18 @@ breedSelect.addEventListener("change", async () => {
 
     // from the api response getting the images  
       const cats = response.data;
+      // checking if the array is empty and also has images
       if (Array.isArray(cats) && cats.length > 0) {
+        //looping in the array
         cats.forEach(cat => {
+          // creating a function createCarouselItem
           const carouselItem = createCarouselItem(cat.url, cat.breeds[0]?.name || "Cat", cat.id);
           appendCarousel(carouselItem);
         });
 
-        // displying the breeds infor
+        // displying the breeds info
         const breedInfo = `Breed Name: ${cats[0].breeds[0].name || "Unknown"}`;
-        infoDump.innerHTML = `<h2>${breedInfo}</h2><p>${cats[0].breeds[0].description || "No description available."}</p>`;
+        infoDump.innerHTML = `<h2>${breedInfo}</h2> Cats Info: <p>${cats[0].breeds[0].description || "No description available."}</p>`;
         start(); // Start the carousel
       }
     } catch (error) {
