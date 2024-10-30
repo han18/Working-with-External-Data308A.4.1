@@ -16,7 +16,7 @@ const BASE_URL = "https://api.thecatapi.com/v1/";
 // API key
 const API_KEY = "live_NYBo3ZeybZMRN9jdZ4wOl1KeKn2EX19GmP1XJlbAN8LI61krwajRAWgnVwma4KUd";
 
-// axios config and setting header to hold info of the request
+// axios config and setting headers to hold info of the request
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["x-api-key"] = API_KEY;
 
@@ -39,7 +39,7 @@ let initialLoad = async () => {
       breedSelect.appendChild(option);
     });
 
-    // to load images for the first breed
+    // to load images of the first breed
     if (catBreeds.length > 0) {
       breedSelect.value = catBreeds[0].id;
       breedSelect.dispatchEvent(new Event("change"));
@@ -62,7 +62,7 @@ breedSelect.addEventListener("change", async () => {
     try {
       // fetching the breeds image
       const response = await axios.get(`images/search?breed_id=${selectedBreedId}&limit=3`, {
-        onDownloadProgress: updateProgress,
+        onDownloadProgress: updateProgressBar,
       });
 
     // from the api response getting the images  
@@ -71,7 +71,7 @@ breedSelect.addEventListener("change", async () => {
       if (Array.isArray(cats) && cats.length > 0) {
         //looping in the array
         cats.forEach(cat => {
-          // creating a function createCarouselItem
+          // creating a function createCarouselItem === // Stoped HERE===== 
           const carouselItem = createCarouselItem(cat.url, cat.breeds[0]?.name || "Cat", cat.id);
           appendCarousel(carouselItem);
         });
@@ -79,7 +79,7 @@ breedSelect.addEventListener("change", async () => {
         // displying the breeds info
         const breedInfo = `Breed Name: ${cats[0].breeds[0].name || "Unknown"}`;
         infoDump.innerHTML = `<h2>${breedInfo}</h2> Cats Info: <p>${cats[0].breeds[0].description || "No description available."}</p>`;
-        start(); // Start the carousel
+        start(); // to start the carousel
       }
     } catch (error) {
       console.error("Error fetching breed images:", error);
@@ -87,8 +87,8 @@ breedSelect.addEventListener("change", async () => {
   }
 });
 
-// Update progress function
-function updateProgress(progressEvent) {
+// ============ updating the progress function
+function updateProgressBar(progressEvent) {
   const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
   progressBar.style.width = percentCompleted + "%";
 }
