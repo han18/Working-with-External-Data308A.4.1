@@ -19,6 +19,48 @@ const API_KEY =
   "live_NYBo3ZeybZMRN9jdZ4wOl1KeKn2EX19GmP1XJlbAN8LI61krwajRAWgnVwma4KUd";
 //==============================================================
 
+/**
+ * 1. Create an async function "initialLoad" that does the following:
+ * - Retrieve a list of breeds from the cat API using fetch().
+ * - Create new <options> for each of these breeds, and append them to breedSelect.
+ *  - Each option should have a value attribute equal to the id of the breed.
+ *  - Each option should display text equal to the name of the breed.
+ * This function should execute immediately.
+ */
+
+// using FETCH in this example than axios
+// let response = async function () {
+//     try {
+//       const res = await fetch(`${BASE_URL}breeds`, {
+//         method: 'GET',
+//         headers: {
+//           "x-api-key": API_KEY,
+//         },
+//       });
+
+//       // Checking if the response data is ok
+//       if (!res.ok) {
+//         throw new Error(`HTTP error!`);
+//       }
+
+//       const catBreeds = await res.json();
+//       console.log(catBreeds);
+
+//       for (let i = 0; i < catBreeds.length; i++) {
+//         breedSelect.innerHTML += `<option id=${catBreeds[i].id}> ${catBreeds[i].name} </option>`;
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+
+//   // calling the function
+//   response();
+
+// ======================== the axios code ==================
+// using axios as an alternitive to fetch
+// 4. Change all of your fetch() functions to axios!
+
 // axios config and setting headers to hold info of the request
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["x-api-key"] = API_KEY;
@@ -51,6 +93,21 @@ let initialLoad = async () => {
     console.error(err);
   }
 };
+
+/**
+ * PART TWO: Create an event handler for breedSelect that does the following:
+ * - Retrieve information on the selected breed from the cat API using fetch().
+ *  - Make sure your request is receiving multiple array items!
+ *  - Check the API documentation if you're only getting a single object.
+ * - For each object in the response array, create a new element for the carousel.
+ *  - Append each of these new elements to the carousel.
+ * - Use the other data you have been given to create an informational section within the infoDump element.
+ *  - Be creative with how you create DOM elements and HTML.
+ *  - Feel free to edit index.html and styles.css to suit your needs, but be careful!
+ *  - Remember that functionality comes first, but user experience and design are important.
+ * - Each new selection should clear, re-populate, and restart the Carousel.
+ * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
+ */
 
 // Event handler for breed selection, change since the event is not a click event but on a change of selection
 breedSelect.addEventListener("change", async () => {
@@ -89,10 +146,10 @@ breedSelect.addEventListener("change", async () => {
   }
 });
 
-// ============ updating the progress function
+// ============ updating the progress bar 
 function updateProgressBar(progressEvent) {
-  const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-  progressBar.style.width = percentCompleted + "%";
+  const percentLoad = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+  progressBar.style.width = percentLoad + "%";
 }
 
 // Function to create a carousel item
