@@ -172,18 +172,19 @@ function updateProgressBar(progressEvent) {
 // Function to create a carousel item
 function createCarouselItem(imgSrc, imgAlt, imgId) {
   const template = document.querySelector("#carouselItemTemplate");
-  const clone = template.content.firstElementChild.cloneNode(true);
+  // to create a new carouselItem element. creates a deep copy of the template
+  const cloneTemplate = template.content.firstElementChild.cloneNode(true);
   
-  const img = clone.querySelector("img");
+  const img = cloneTemplate.querySelector("img");
   img.src = imgSrc;
   img.alt = imgAlt;
 
-  const favBtn = clone.querySelector(".favourite-button");
+  const favBtn = cloneTemplate.querySelector(".favourite-button");
   favBtn.addEventListener("click", () => {
     favourite(imgId);
   });
 
-  return clone;
+  return cloneTemplate;
 }
 
 // Function to append carousel item
