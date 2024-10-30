@@ -175,6 +175,7 @@ function createCarouselItem(imgSrc, imgAlt, imgId) {
   // to create a new carouselItem element. creates a deep copy of the template
   const cloneTemplate = template.content.firstElementChild.cloneNode(true);
   
+  // to hold the images
   const img = cloneTemplate.querySelector("img");
   img.src = imgSrc;
   img.alt = imgAlt;
