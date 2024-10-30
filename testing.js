@@ -11,10 +11,13 @@ const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 // getting the carousel items to display images
 const carouselInner = document.getElementById("carouselInner");
 
-// API base URL
+// the base URL
 const BASE_URL = "https://api.thecatapi.com/v1/";
-// API key
-const API_KEY = "live_NYBo3ZeybZMRN9jdZ4wOl1KeKn2EX19GmP1XJlbAN8LI61krwajRAWgnVwma4KUd";
+// Step 0: Store your API key here for reference and easy access.
+// I set my API KEY
+const API_KEY =
+  "live_NYBo3ZeybZMRN9jdZ4wOl1KeKn2EX19GmP1XJlbAN8LI61krwajRAWgnVwma4KUd";
+//==============================================================
 
 // axios config and setting headers to hold info of the request
 axios.defaults.baseURL = BASE_URL;
@@ -40,16 +43,16 @@ let initialLoad = async () => {
     });
 
     // to load images of the first breed
-    if (catBreeds.length > 0) {
-      breedSelect.value = catBreeds[0].id;
-      breedSelect.dispatchEvent(new Event("change"));
-    }
+    // if (catBreeds.length > 0) {
+    //   breedSelect.value = catBreeds[0].id;
+    //   breedSelect.dispatchEvent(new Event("change"));
+    // }
   } catch (err) {
     console.error(err);
   }
 };
 
-// Event handler for breed selection, change since the event is not on a click but on a change of selection
+// Event handler for breed selection, change since the event is not a click event but on a change of selection
 breedSelect.addEventListener("change", async () => {
   // getting the breeds value on change
   const selectedBreedId = breedSelect.value;
@@ -57,7 +60,7 @@ breedSelect.addEventListener("change", async () => {
     // clearing the previous content to laod new selection 
     carouselInner.innerHTML = '';
     infoDump.innerHTML = '';
-    progressBar.style.width = "0%"; // eesetting progress bar
+    progressBar.style.width = "0%"; // setting the progress bar
 
     try {
       // fetching the breeds image
@@ -65,7 +68,7 @@ breedSelect.addEventListener("change", async () => {
         onDownloadProgress: updateProgressBar,
       });
 
-    // from the api response getting the images  
+    // from the api response getting the images url 
       const cats = response.data;
       // checking if the array is empty and also has images
       if (Array.isArray(cats) && cats.length > 0) {
@@ -78,8 +81,7 @@ breedSelect.addEventListener("change", async () => {
 
         // displying the breeds info
         const breedInfo = `Breed Name: ${cats[0].breeds[0].name || "Unknown"}`;
-        infoDump.innerHTML = `<h2>${breedInfo}</h2> Cats Info: <p>${cats[0].breeds[0].description || "No description available."}</p>`;
-        start(); // to start the carousel
+        infoDump.innerHTML = `<h2>${breedInfo}</h2> Cats Info: <p>${cats[0].breeds[0].description || "No description of cats are available."}</p>`;
       }
     } catch (error) {
       console.error("Error fetching breed images:", error);
