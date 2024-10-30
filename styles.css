@@ -77,3 +77,15 @@ body {
     height: 17em;
   }
 }
+
+
+/* my own style  */
+
+ h2 {
+  color: rgb(132, 37, 2)
+ }
+p {
+  color: rgb(0, 1, 87);
+  font-family: bold;
+  border: 1px solid rgb(143, 141, 141);
+}
