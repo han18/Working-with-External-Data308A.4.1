@@ -131,7 +131,7 @@ breedSelect.addEventListener("change", async () => {
       if (Array.isArray(cats) && cats.length > 0) {
         //looping in the array
         cats.forEach(cat => {
-          // creating a function createCarouselItem === // Stoped HERE===== 
+          // creating a function createCarouselItem 
           const carouselItem = createCarouselItem(cat.url, cat.breeds[0]?.name || "Cat", cat.id);
           appendCarousel(carouselItem);
         });
